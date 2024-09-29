@@ -1,9 +1,10 @@
 
 
 #----------------------------------------------------------
-# ACS730 - Week 3 - Terraform Introduction
+# CLO835 - Assignment 1 - Terraform Deployment
 #
 # Build EC2 Instances
+# Build ECR repos
 #
 #----------------------------------------------------------
 
@@ -42,7 +43,7 @@ locals {
 
 # Retrieve global variables from the Terraform module
 module "globalvars" {
-  source = "../../modules/globalvars"
+  source = "../modules/globalvars"
 }
 
 # Reference subnet provisioned by 01-Networking 
@@ -62,6 +63,13 @@ resource "aws_instance" "my_amazon" {
       "Name" = "${local.name_prefix}-Amazon-Linux"
     }
   )
+}
+resource "aws_ecr_repository" "my_ecr_repo" {
+  name                 = "clo835-assignment1"
+  image_tag_mutability = "MUTABLE"  # or "IMMUTABLE" based on your requirement
+  image_scanning_configuration {
+    scan_on_push = true
+  }
 }
 
 
