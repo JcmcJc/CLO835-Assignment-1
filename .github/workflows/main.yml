@@ -66,7 +66,4 @@ jobs:
         echo "Database Host: $DBHOST"
         docker run -d -p 8081:8080  -e DBHOST=$DBHOST -e DBPORT=$DBPORT -e  DBUSER=$DBUSER -e DBPWD=$DBPWD  $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker ps
-        echo "Pause for 10 seconds to let container start"
-        sleep 10
-        curl localhost -vvv
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
